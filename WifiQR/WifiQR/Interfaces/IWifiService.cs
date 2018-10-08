@@ -6,7 +6,7 @@ namespace WifiQR.Interfaces
 {
     public interface IWifiService : IConnectable, IDisconnectable, IDisposable
     {
-        IEnumerable<AccessPoint>    GetAcessPoints             ();
-        void                        ConnectToAccessPoint    (string ssid, string password);
+        IEnumerable<AccessPoint>    GetLastScanAcessPoints              ();
+        void                        ConnectToAccessPoint                (string ssid, string password);
     }
 }

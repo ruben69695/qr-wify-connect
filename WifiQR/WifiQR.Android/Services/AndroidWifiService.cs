@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
-using Android.App;
+using Xamarin.Forms;
 using Android.Runtime;
 using Android.Net.Wifi;
 using Android.Content;
 
 using WifiQR.Interfaces;
 using WifiQR.Classes;
+using WifiQR.Droid.Services;
 
+[assembly: Dependency(typeof(AndroidWifiService))]
 namespace WifiQR.Droid.Services
 {
     public class AndroidWifiService : IWifiService
@@ -16,23 +19,27 @@ namespace WifiQR.Droid.Services
 
         public AndroidWifiService()
         {
-            _manager = Application.Context.GetSystemService(Context.WifiService).JavaCast<WifiManager>();
+            _manager = Android.App.Application.Context.GetSystemService(Context.WifiService).JavaCast<WifiManager>();
         }
 
         public void ConnectToAccessPoint(string ssid, string password)
         {
+            int netId = -1;
+
             var wifi = new WifiConfiguration
             {
-                Ssid = ssid,
-                PreSharedKey = password,
+                Ssid =  $"\"{ssid}\"",
+                PreSharedKey = $"\"{password}\"",
             };
 
-            if (!_manager.ConfiguredNetworks.Contains(wifi))
-                _manager.UpdateNetwork(wifi);
-            else
-                _manager.AddNetwork(wifi);
+            netId = _manager.ConfiguredNetworks.FirstOrDefault(x => x.Ssid == ssid) != null 
+                            ? _manager.UpdateNetwork(wifi) 
+                            : _manager.AddNetwork(wifi);
 
-            _manager.EnableNetwork(wifi.NetworkId, true);
+            //int netId = _manager.AddNetwork(wifi);
+            _manager.Disconnect();
+            _manager.EnableNetwork(netId, true);
+            _manager.Reconnect();
         }
 
         public bool TurnOff()
@@ -50,7 +57,7 @@ namespace WifiQR.Droid.Services
             _manager.Dispose();
         }
 
-        public IEnumerable<AccessPoint> GetAcessPoints()
+        public IEnumerable<AccessPoint> GetLastScanAcessPoints()
         {
             var accessPoints = new List<AccessPoint>();
             foreach (var item in _manager.ScanResults)
