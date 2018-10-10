@@ -4,19 +4,18 @@ using Xamarin.Forms.Xaml;
 
 using WifiQR.Interfaces;
 using WifiQR.Classes;
+using WifiQR.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace WifiQR
 {
     public partial class App : Application
     {
-        public IWifiService WifiService { get => DependencyServicesResolver.WifiService; }
-
         public App()
         {
             InitializeComponent();
-            WifiService.ConnectToAccessPoint("MOVISTAR_ABEE", "949FE08721A5C7FCC341");
-            MainPage = new MainPage();
+            //WifiService.ConnectToAccessPoint("MOVISTAR_ABEE", "949FE08721A5C7FCC341");
+            MainPage = new NavigationPage(new AccessPointsPage());
         }
 
         protected override void OnStart()
