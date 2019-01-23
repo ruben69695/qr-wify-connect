@@ -11,7 +11,7 @@ namespace WifiQR.Classes
 
         public                  AccessPoint(string ssid)
         {
-            _ssid   = ssid;
+            _ssid = ssid == string.Empty ? "[NO SSID]" : ssid;
         }
 
         public                  AccessPoint(string ssid, string password) : this(ssid)

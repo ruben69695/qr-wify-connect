@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using WifiQR.Classes;
 using WifiQR.Interfaces;
 using Xamarin.Forms;
-using ZXing.Mobile;
 
 namespace WifiQR.Views
 {
