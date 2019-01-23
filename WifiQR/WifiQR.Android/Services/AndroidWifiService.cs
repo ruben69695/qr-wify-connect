@@ -62,7 +62,8 @@ namespace WifiQR.Droid.Services
             var accessPoints = new List<AccessPoint>();
             foreach (var item in _manager.ScanResults)
             {
-                accessPoints.Add(new AccessPoint(item.Ssid));
+                if(item.ChannelWidth != 0)
+                    accessPoints.Add(new AccessPoint(item.Ssid, item.Bssid));
             }
             return accessPoints;
         }

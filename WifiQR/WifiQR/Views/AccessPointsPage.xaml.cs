@@ -23,7 +23,7 @@ namespace WifiQR.Views
 
             foreach (AccessPoint item in WifiService.GetLastScanAcessPoints())
             {
-                items.Add(new AccessPointView(item.SSID, "baseline_network_wifi_black_24.png"));
+                items.Add(new AccessPointView(item.SSID, "baseline_network_wifi_black_24.png", item.BSSID));
             }
 
             return items;

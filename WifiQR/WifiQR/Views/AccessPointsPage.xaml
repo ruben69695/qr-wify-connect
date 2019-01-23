@@ -25,6 +25,9 @@
             <ListView x:Name="list" ItemTemplate="{StaticResource accessPointTemplate}" Margin="10" 
                       ItemSelected="Handle_ItemSelected"
                       ItemTapped="Handle_ItemTapped"/>
+            <StackLayout VerticalOptions="EndAndExpand">
+                <Label x:Name="lblStatus" Text="Not connected" HorizontalOptions="Center" VerticalOptions="Center" /> 
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

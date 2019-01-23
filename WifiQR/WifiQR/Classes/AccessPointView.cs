@@ -3,7 +3,11 @@
     public class AccessPointView : AccessPoint
     {
         public string Icon { get; set; }
-        public AccessPointView(string ssid, string icon) : base(ssid) 
-            { Icon = icon; }
+
+        public AccessPointView(string ssid, string icon, string bssid) 
+            : base(ssid, bssid) 
+        { 
+            Icon = icon; 
+        }
     }
 }

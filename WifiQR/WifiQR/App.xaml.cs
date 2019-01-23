@@ -16,8 +16,8 @@ namespace WifiQR
             InitializeComponent();
             //WifiService.ConnectToAccessPoint("MOVISTAR_ABEE", "949FE08721A5C7FCC341");
             MainPage = new NavigationPage(new AccessPointsPage());
-            MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.DimGray);
-            MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.DarkGray);
+            MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.White);
+            MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("#6200EE"));
         }
 
         protected override void OnStart()
