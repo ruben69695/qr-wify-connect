@@ -28,6 +28,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -95,6 +96,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\iOSWifiService.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -140,6 +142,30 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\.DS_Store" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_18pt.xcassets\.DS_Store" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_24pt.xcassets\.DS_Store" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_18.xcassets\.DS_Store" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_18.xcassets\baseline_network_wifi_black_18.imageset\.DS_Store" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_18.xcassets\baseline_network_wifi_black_18.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_18.xcassets\baseline_network_wifi_black_18.imageset\baseline_network_wifi_black_18_1x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_18.xcassets\baseline_network_wifi_black_18.imageset\baseline_network_wifi_black_18_2x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_18.xcassets\baseline_network_wifi_black_18.imageset\baseline_network_wifi_black_18_3x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_24.xcassets\.DS_Store" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_24.xcassets\baseline_network_wifi_black_24.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_24.xcassets\baseline_network_wifi_black_24.imageset\baseline_network_wifi_black_24_1x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_24.xcassets\baseline_network_wifi_black_24.imageset\baseline_network_wifi_black_24_2x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_24.xcassets\baseline_network_wifi_black_24.imageset\baseline_network_wifi_black_24_3x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_36.xcassets\.DS_Store" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_36.xcassets\baseline_network_wifi_black_36.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_36.xcassets\baseline_network_wifi_black_36.imageset\baseline_network_wifi_black_36_1x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_36.xcassets\baseline_network_wifi_black_36.imageset\baseline_network_wifi_black_36_2x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_36.xcassets\baseline_network_wifi_black_36.imageset\baseline_network_wifi_black_36_3x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_48.xcassets\.DS_Store" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_48.xcassets\baseline_network_wifi_black_48.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_48.xcassets\baseline_network_wifi_black_48.imageset\baseline_network_wifi_black_48_1x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_48.xcassets\baseline_network_wifi_black_48.imageset\baseline_network_wifi_black_48_2x.png" />
+    <ImageAsset Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_48.xcassets\baseline_network_wifi_black_48.imageset\baseline_network_wifi_black_48_3x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -156,5 +182,13 @@
       <Project>{0FAF31B1-B867-4E6D-B0E7-FAE316003837}</Project>
       <Name>WifiQR</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Assets.xcassets\WIfi_Icon.imageset\" />
+    <Folder Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_18pt.xcassets\baseline_network_wifi_black_18.imageset\" />
+    <Folder Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_24pt.xcassets\baseline_network_wifi_black_24.imageset\" />
+    <Folder Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_36pt.xcassets\baseline_network_wifi_black_36.imageset\" />
+    <Folder Include="Assets.xcassets\baseline-network_wifi-ios-black\baseline_network_wifi_black_48pt.xcassets\baseline_network_wifi_black_48.imageset\" />
   </ItemGroup>
 </Project>

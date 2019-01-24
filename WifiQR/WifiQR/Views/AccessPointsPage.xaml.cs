@@ -15,6 +15,8 @@ namespace WifiQR.Views
             InitializeComponent();
             AccessPoints = GetAccessPointsView();
             list.ItemsSource = AccessPoints;
+
+            WifiService.Connected += WifiService_Connected;
         }
 
         public ObservableCollection<AccessPointView> GetAccessPointsView()
@@ -23,7 +25,7 @@ namespace WifiQR.Views
 
             foreach (AccessPoint item in WifiService.GetLastScanAcessPoints())
             {
-                items.Add(new AccessPointView(item.SSID, "baseline_network_wifi_black_24.png", item.BSSID));
+                items.Add(new AccessPointView(item.SSID, "baseline_network_wifi_black_24", item.BSSID));
             }
 
             return items;
@@ -42,5 +44,15 @@ namespace WifiQR.Views
         {
             list.SelectedItem = null;
         }
+
+        void WifiService_Connected(object sender, System.EventArgs e)
+        {
+            Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+            {
+                lblStatus.Text = "Connected";
+                lblStatus.FadeTo(1.0d, 1500, Easing.SpringIn);
+            });
+        }
+
     }
 }
