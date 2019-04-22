@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Xamarin.Forms;
 using WifiQR.iOS.Services;
 using WifiQR.Interfaces;
-using System.Collections.Generic;
 using WifiQR.Classes;
+using Network;
 
 [assembly: Dependency(typeof(iOSWifiService))]
 namespace WifiQR.iOS.Services
@@ -13,6 +14,7 @@ namespace WifiQR.iOS.Services
     {
         public iOSWifiService()
         {
+            var conn = new NWConnection(new IntPtr(), true);
         }
 
         public event EventHandler Connected;
