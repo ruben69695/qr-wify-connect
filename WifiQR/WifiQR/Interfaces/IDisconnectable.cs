@@ -3,6 +3,8 @@ namespace WifiQR.Interfaces
 {
     public interface IDisconnectable
     {
-        bool        TurnOff         ();
+        bool TurnOff();
+        event EventHandler<string> ConnectionError;
+        event EventHandler Disconnected;
     }
 }

@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifiQR.Android", "WifiQR.Android\WifiQR.Android.csproj", "{685065D7-5EFF-4671-A819-2D9BD95638F7}"
@@ -50,7 +50,6 @@ Global
 		{4B4B07D8-E353-45B6-A4D4-F91C7B2F2698}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
 		{4B4B07D8-E353-45B6-A4D4-F91C7B2F2698}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
 		{4B4B07D8-E353-45B6-A4D4-F91C7B2F2698}.AppStore|iPhone.Build.0 = AppStore|iPhone
-		{4B4B07D8-E353-45B6-A4D4-F91C7B2F2698}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
 		{0FAF31B1-B867-4E6D-B0E7-FAE316003837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0FAF31B1-B867-4E6D-B0E7-FAE316003837}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FAF31B1-B867-4E6D-B0E7-FAE316003837}.Release|Any CPU.ActiveCfg = Release|Any CPU

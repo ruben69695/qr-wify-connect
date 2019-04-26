@@ -21,12 +21,22 @@
     </ContentPage.Resources>        
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <ListView x:Name="list" ItemTemplate="{StaticResource accessPointTemplate}" Margin="10" 
+            
+            <!-- Wifis -->
+            <ListView x:Name="WifisList" ItemTemplate="{StaticResource accessPointTemplate}" Margin="10" 
                       ItemSelected="Handle_ItemSelected"
-                      ItemTapped="Handle_ItemTapped"/>
-            <StackLayout Margin="0,0,0,15" VerticalOptions="EndAndExpand">
-                <Label x:Name="lblStatus" Opacity="0" Text="Not connected" HorizontalOptions="Center" VerticalOptions="Center" /> 
+                      ItemTapped="Handle_ItemTapped" IsVisible="True"/>
+            
+            <!-- Loading -->
+            <ActivityIndicator x:Name="LoadingIndicator" Scale="2.0" Color="Navy" IsRunning="False" IsVisible="False" 
+                               HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            
+            <!-- Status and Refresh Button -->
+            <StackLayout Margin="0,0,0,15" VerticalOptions="EndAndExpand" Orientation="Vertical">
+                <Label x:Name="lblStatus" Opacity="0" Text="Not connected" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Button x:Name="btnRefresh" Text="Refresh" Clicked="BtnRefresh_OnClicked" />
             </StackLayout>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

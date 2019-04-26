@@ -29,7 +29,7 @@ namespace WifiQR.iOS.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<AccessPoint> GetLastScanAcessPoints()
+        public IEnumerable<AccessPoint> GetLastScanAccessPoints()
         {
             return new List<AccessPoint>()
             {
@@ -42,6 +42,9 @@ namespace WifiQR.iOS.Services
         {
             return true;
         }
+
+        public event EventHandler<string> ConnectionError;
+        public event EventHandler Disconnected;
 
         public bool TurnOn()
         {

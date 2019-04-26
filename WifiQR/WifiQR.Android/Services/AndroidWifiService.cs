@@ -10,27 +10,38 @@ using WifiQR.Interfaces;
 using WifiQR.Classes;
 using WifiQR.Droid.Services;
 using System;
+using System.Threading.Tasks;
 using System.Timers;
+using Thread = System.Threading.Thread;
 
 [assembly: Dependency(typeof(AndroidWifiService))]
 namespace WifiQR.Droid.Services
-{
+{    
     public class AndroidWifiService : IWifiService
     {
         private readonly WifiManager _manager;
+        private readonly Timer _wifiCheckingTimer;
+        
         private WifiConfiguration _current;
         private int _currentNetId;
-        private Timer _wifiCheckingTimer;
-        private int _totalMiliseconds;
+        private int _totalMilliseconds;
 
         public event EventHandler Connected;
+        public event EventHandler Disconnected;
+        public event EventHandler<string> ConnectionError;
+        public event EventHandler RefreshDone;
+
+        public bool IsRefreshing { get; private set; }
+
 
         public AndroidWifiService()
         {
             _manager = Android.App.Application.Context.GetSystemService(Context.WifiService).JavaCast<WifiManager>();
             _wifiCheckingTimer = new Timer(1000);
-            _wifiCheckingTimer.Elapsed += _wifiCheckingTimer_Elapsed;
+            _wifiCheckingTimer.Elapsed += WifiCheckingTimer_Elapsed;
         }
+
+        #region Public API
 
         public void ConnectToAccessPoint(string ssid, string password)
         {
@@ -49,16 +60,16 @@ namespace WifiQR.Droid.Services
             _currentNetId = netId;
             _current = wifi;
 
-            //int netId = _manager.AddNetwork(wifi);
             _manager.Disconnect();
             _manager.EnableNetwork(netId, true);
             _manager.Reconnect();
 
-            startWifiCheckingTimer();
+            StartWifiCheckingTimer();
         }
 
         public bool TurnOff()
         {
+            Disconnected?.Invoke(this, EventArgs.Empty);
             return _manager.SetWifiEnabled(false);
         }
 
@@ -72,25 +83,42 @@ namespace WifiQR.Droid.Services
             _manager.Dispose();
         }
 
-        public IEnumerable<AccessPoint> GetLastScanAcessPoints()
+        public IEnumerable<AccessPoint> GetLastScanAccessPoints()
         {
-            var accessPoints = new List<AccessPoint>();
-            foreach (var item in _manager.ScanResults)
-            {
-                accessPoints.Add(new AccessPoint(item.Ssid, item.Bssid));
-            }
-            return accessPoints;
+            return _manager.ScanResults.Select(item => new AccessPoint(item.Ssid, item.Bssid)).ToList();
         }
-
-        private void _wifiCheckingTimer_Elapsed(object sender, ElapsedEventArgs e)
+        
+        public async void Refresh()
         {
-            if (_totalMiliseconds == 10000)
+            if (IsRefreshing)
+                return;
+
+            await Task.Run(() =>
             {
-                stopWifiCheckingTimer();
+                IsRefreshing = true;
+
+                // There's no other form right now to scan for new wifi access points
+                _manager.StartScan();
+                Thread.Sleep(7000);
+
+                IsRefreshing = false;
+            });
+
+            RefreshDone?.Invoke(this, EventArgs.Empty);
+        }
+        
+        #endregion
+
+        private void WifiCheckingTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (_totalMilliseconds == 10000)
+            {
+                StopWifiCheckingTimer();
+                ConnectionError?.Invoke(this, "Can't connect, incorrect password");
             }
             if (!_manager.IsWifiEnabled)
             {
-                stopWifiCheckingTimer();
+                StopWifiCheckingTimer();
                 return;
             }
             if (_manager.ConnectionInfo == null)
@@ -98,22 +126,21 @@ namespace WifiQR.Droid.Services
 
             if(_manager.ConnectionInfo.NetworkId == _currentNetId && _manager.ConnectionInfo.SSID == _current.Ssid)
             {
-                stopWifiCheckingTimer();
+                StopWifiCheckingTimer();
                 Connected?.Invoke(this, EventArgs.Empty);
             }
 
-            _totalMiliseconds += 1000;
+            _totalMilliseconds += 1000;
         }
 
-        private void stopWifiCheckingTimer()
+        private void StopWifiCheckingTimer()
         {
             _wifiCheckingTimer.Stop();
         }
 
-        private void startWifiCheckingTimer()
+        private void StartWifiCheckingTimer()
         {
             _wifiCheckingTimer.Start();
         }
-
     }
 }

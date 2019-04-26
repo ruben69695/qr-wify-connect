@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using WifiQR.Classes;
 using WifiQR.Interfaces;
 using Xamarin.Forms;
@@ -14,16 +15,18 @@ namespace WifiQR.Views
         {
             InitializeComponent();
             AccessPoints = GetAccessPointsView();
-            list.ItemsSource = AccessPoints;
+            WifisList.ItemsSource = AccessPoints;
 
             WifiService.Connected += WifiService_Connected;
+            WifiService.ConnectionError += WifiService_ConnectionError;
+            WifiService.RefreshDone += WifiService_RefreshDone;
         }
 
-        public ObservableCollection<AccessPointView> GetAccessPointsView()
+        private ObservableCollection<AccessPointView> GetAccessPointsView()
         {
             var items = new ObservableCollection<AccessPointView>();
 
-            foreach (AccessPoint item in WifiService.GetLastScanAcessPoints())
+            foreach (AccessPoint item in WifiService.GetLastScanAccessPoints())
             {
                 items.Add(new AccessPointView(item.SSID, "baseline_network_wifi_black_24", item.BSSID));
             }
@@ -31,8 +34,11 @@ namespace WifiQR.Views
             return items;
         }
 
-        async void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
+        private async void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
+            if (WifiService.IsRefreshing)
+                return;
+            
             var scanner = new ZXing.Mobile.MobileBarcodeScanner();
             var result = await scanner.Scan();
 
@@ -40,12 +46,12 @@ namespace WifiQR.Views
                 WifiService.ConnectToAccessPoint((e.Item as AccessPoint).SSID, result.Text);
         }
 
-        void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        private void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
         {
-            list.SelectedItem = null;
+            WifisList.SelectedItem = null;
         }
 
-        void WifiService_Connected(object sender, System.EventArgs e)
+        private void WifiService_Connected(object sender, System.EventArgs e)
         {
             Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
             {
@@ -53,6 +59,47 @@ namespace WifiQR.Views
                 lblStatus.FadeTo(1.0d, 1500, Easing.SpringIn);
             });
         }
+        
+        private void WifiService_ConnectionError(object sender, string e)
+        {
+            Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+            {
+                lblStatus.Text = $"Error connecting";
+                lblStatus.FadeTo(1.0d, 1500, Easing.CubicInOut);
+            });
+        }
 
+        private void WifiService_RefreshDone(object sender, EventArgs e)
+        {
+            Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+            {
+                btnRefresh.IsEnabled = true;
+            
+                LoadingIndicator.IsVisible = false;
+                LoadingIndicator.IsRunning = false;
+                
+                lblStatus.Text = $"Scan done";
+                lblStatus.FadeTo(1.0d, 1500, Easing.CubicOut);
+            
+                AccessPoints = GetAccessPointsView();
+                WifisList.ItemsSource = AccessPoints;
+                WifisList.IsVisible = true;
+            });
+        }
+
+        private void BtnRefresh_OnClicked(object sender, EventArgs e)
+        {
+            WifiService.Refresh();
+            
+            btnRefresh.IsEnabled = false;
+            
+            lblStatus.Text = $"Scanning...";
+            lblStatus.FadeTo(1.0d, 1500, Easing.SpringIn);
+            
+            WifisList.IsVisible = false;
+            
+            LoadingIndicator.IsVisible = true;
+            LoadingIndicator.IsRunning = true;
+        }
     }
 }
