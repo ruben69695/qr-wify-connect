@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WifiQR.Views.AccessPointsPage"
              Title="QRFI">
+    
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="accessPointTemplate">
@@ -18,8 +20,15 @@
                 <Setter Property="TextColor" Value="#000000" />
             </Style>
         </ResourceDictionary>
-    </ContentPage.Resources>        
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ScanButton" Text="Scan" Clicked="BtnRefresh_OnClicked" />
+    </ContentPage.ToolbarItems>
+    
+    
     <ContentPage.Content>
+        
         <StackLayout Orientation="Vertical">
             
             <!-- Wifis -->
@@ -33,10 +42,14 @@
             
             <!-- Status and Refresh Button -->
             <StackLayout Margin="0,0,0,15" VerticalOptions="EndAndExpand" Orientation="Vertical">
+                
                 <Label x:Name="lblStatus" Opacity="0" Text="Not connected" HorizontalOptions="Center" VerticalOptions="Center" />
-                <Button x:Name="btnRefresh" Text="Refresh" Clicked="BtnRefresh_OnClicked" />
+                
             </StackLayout>
             
-        </StackLayout>
+        </StackLayout>      
+        
     </ContentPage.Content>
+    
+    
 </ContentPage>

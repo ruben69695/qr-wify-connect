@@ -65,7 +65,7 @@ namespace WifiQR.Views
             Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
             {
                 lblStatus.Text = $"Error connecting";
-                lblStatus.FadeTo(1.0d, 1500, Easing.CubicInOut);
+                lblStatus.FadeTo(1.0d, 500, Easing.SpringIn);
             });
         }
 
@@ -73,13 +73,13 @@ namespace WifiQR.Views
         {
             Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
             {
-                btnRefresh.IsEnabled = true;
+                ScanButton.IsEnabled = true;
             
                 LoadingIndicator.IsVisible = false;
                 LoadingIndicator.IsRunning = false;
-                
+
                 lblStatus.Text = $"Scan done";
-                lblStatus.FadeTo(1.0d, 1500, Easing.CubicOut);
+                lblStatus.FadeTo(0.0d, 2500, Easing.CubicOut);
             
                 AccessPoints = GetAccessPointsView();
                 WifisList.ItemsSource = AccessPoints;
@@ -90,8 +90,8 @@ namespace WifiQR.Views
         private void BtnRefresh_OnClicked(object sender, EventArgs e)
         {
             WifiService.Refresh();
-            
-            btnRefresh.IsEnabled = false;
+
+            ScanButton.IsEnabled = false;
             
             lblStatus.Text = $"Scanning...";
             lblStatus.FadeTo(1.0d, 1500, Easing.SpringIn);
