@@ -85,7 +85,18 @@ namespace WifiQR.Droid.Services
 
         public IEnumerable<AccessPoint> GetLastScanAccessPoints()
         {
-            return _manager.ScanResults.Select(item => new AccessPoint(item.Ssid, item.Bssid)).ToList();
+            var accessPointList = new List<AccessPoint>();
+
+            foreach (var scanResult in _manager.ScanResults)
+            {
+                if (!accessPointList.Any(x => x.SSID == scanResult.Ssid))
+                {
+                    var newAccessPoint = new AccessPoint(scanResult.Ssid, scanResult.Bssid);
+                    accessPointList.Add(newAccessPoint);
+                }
+            }
+
+            return accessPointList;
         }
         
         public async void Refresh()
