@@ -1,5 +1,5 @@
 # QRFI
-Smartphone application to connect your device to a WiFi access point by scanning a QR Code
+Android smartphone application to connect your device to a WiFi access point by scanning a QR Code
 
 # Getting Started
 1. Clone the repository
@@ -17,7 +17,7 @@ Smartphone application to connect your device to a WiFi access point by scanning
 - Android
 
 # Special thanks
-We've used [ZXing.Net.Mobile](https://github.com/Redth/ZXing.Net.Mobile) to scan the QR Codes in our application, special thanks to all the community behing this project.
+We've used [ZXing.Net.Mobile](https://github.com/Redth/ZXing.Net.Mobile) to scan the QR Codes in our application, special thanks to all the community behind this project.
 
 # Contribute
 If you want to contribute, please, don't wait and send us a message to add you to collaborate in this open source project. We are waiting for your help. Happy coding!
