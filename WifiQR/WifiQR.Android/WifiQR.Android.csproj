@@ -107,6 +107,11 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_network_wifi_black_24.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_network_wifi_black_36.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\baseline_network_wifi_black_48.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\logo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\logo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\logo.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\logo.png" />
+    <AndroidResource Include="Resources\drawable\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
