@@ -1,4 +1,4 @@
-# QRFI
+# QRWAN
 Android smartphone application to connect your device to a WiFi access point by scanning a QR Code
 
 # Getting Started
