@@ -25,6 +25,7 @@ namespace WifiQR.Droid.Services
         private WifiConfiguration _current;
         private int _currentNetId;
         private int _totalMilliseconds;
+        private readonly ISoundService soundService;
 
         public event EventHandler Connected;
         public event EventHandler Disconnected;

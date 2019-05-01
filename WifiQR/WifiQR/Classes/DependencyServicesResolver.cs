@@ -7,11 +7,13 @@ namespace WifiQR.Classes
     public sealed class DependencyServicesResolver
     {
         private static IWifiService _instance = null;
+        private static ISoundService _soundInstance = null;
 
         private DependencyServicesResolver() 
         {
             // Register dependencies
             DependencyService.Register<IWifiService>();
+            DependencyService.Register<ISoundService>();
         }
 
         public static IWifiService WifiService 
@@ -24,6 +26,19 @@ namespace WifiQR.Classes
                 }
 
                 return _instance;
+            }
+        }
+
+        public static ISoundService SoundService
+        {
+            get
+            {
+                if(_soundInstance == null)
+                {
+                    _soundInstance = DependencyService.Get<ISoundService>();
+                }
+
+                return _soundInstance;
             }
         }
     }
