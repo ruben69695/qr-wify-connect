@@ -17,6 +17,7 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Classes\" />
     <Folder Include="Views\" />
+    <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Interfaces\INetworkable.cs" />

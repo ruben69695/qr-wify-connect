@@ -12,9 +12,11 @@ using ZXing.Mobile;
 
 namespace WifiQR.Droid
 {
-    [Activity(Label = "WifiQR", Icon = "@drawable/logo", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "QRWAN", Icon = "@drawable/logo", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        public static View RootView { get; private set; }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -24,6 +26,8 @@ namespace WifiQR.Droid
 
             MobileBarcodeScanner.Initialize(Application);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            RootView = FindViewById(Android.Resource.Id.Content);
 
             AskPermissions();
         }
